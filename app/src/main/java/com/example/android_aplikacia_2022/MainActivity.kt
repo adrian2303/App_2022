@@ -31,6 +31,44 @@ class MainActivity : AppCompatActivity() {
 
             readData()
         }
+
+        binding.btnDeleteAll.setOnClickListener {
+
+            GlobalScope.launch {
+
+                appDb.userDao().deleteAll()
+            }
+        }
+
+        binding.btnUpdate.setOnClickListener {
+
+            updateData()
+        }
+    }
+
+    private fun updateData() {
+
+        val firstName = binding.etFirstName.text.toString()
+        val lastName = binding.etLastName.text.toString()
+        val rollNo = binding.etRollNo.text.toString()
+
+        if (firstName.isNotEmpty() && lastName.isNotEmpty() && rollNo.isNotEmpty()){
+
+
+            GlobalScope.launch(Dispatchers.IO){
+
+                appDb.userDao().update(firstName, lastName, rollNo.toInt())
+            }
+
+            binding.etFirstName.text.clear()
+            binding.etLastName.text.clear()
+            binding.etRollNo.text.clear()
+
+            Toast.makeText(this@MainActivity, "Uspesne ste zmenili udaje o Userovi", Toast.LENGTH_SHORT).show()
+        } else{
+            Toast.makeText(this@MainActivity, "Prosim zadajte vsetky potrebne udaje", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     private  fun writeData(){

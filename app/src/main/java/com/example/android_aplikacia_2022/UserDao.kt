@@ -15,9 +15,12 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(user: User)
 
-//    @Delete
-//    fun delete(user: User)
+    @Query("UPDATE user_table SET first_name=:firstName,last_name=:lastName WHERE roll_no LIKE :roll")
+    fun update(firstName: String, lastName : String, roll: Int)
 
-//    @Query("DELETE FROM user_table")
-//    fun deleteAll()
+    @Delete
+    fun delete(user: User)
+
+    @Query("DELETE FROM user_table")
+    fun deleteAll()
 }
