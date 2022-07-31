@@ -10,14 +10,14 @@ interface UserDao {
     fun getAll(): List<User>
 
     @Query("SELECT * FROM user_table WHERE roll_no LIKE :roll LIMIT 1")
-    suspend fun findByRoll(roll: Int): User
+    fun findByRoll(roll: Int): User
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(user: User)
+    fun insert(user: User)
 
-    @Delete
-    suspend fun delete(user: User)
+//    @Delete
+//    fun delete(user: User)
 
-    @Query("DELETE FROM user_table")
-    suspend fun deleteAll()
+//    @Query("DELETE FROM user_table")
+//    fun deleteAll()
 }
